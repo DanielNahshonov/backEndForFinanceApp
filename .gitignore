@@ -1,0 +1,33 @@
+# Для Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+env/
+venv/
+*.env
+
+# Для Flask
+instance/
+*.db
+*.sqlite
+*.log
+
+# Для MongoDB
+*.bak
+*.dmp
+mongod.pid
+
+# Для IDE
+.vscode/
+.idea/
+*.swp
+
+# Для MacOS
+.DS_Store
+
+# Для Windows
+Thumbs.db
+
+# Для других файлов
+*.env
