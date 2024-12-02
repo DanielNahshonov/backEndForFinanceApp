@@ -3,10 +3,11 @@ from flask import Flask
 from flask_jwt_extended import JWTManager
 from routes.auth import auth_bp
 from routes.portfolio import portfolio_bp
-from routes.stock import stock_bp
+from routes.stocks import stocks_bp
 from flask_cors import CORS
 from dotenv import load_dotenv
 from db import init_db  # Импортируем функцию инициализации базы данных
+from services.stock_service import get_stock_data  # Импортируем функцию для получения данных об акциях
 
 load_dotenv()  # Загружаем переменные из .env файла
 
@@ -28,7 +29,12 @@ print("Database 'financeApp' selected:", db)
 # Регистрация маршрутов
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(portfolio_bp, url_prefix='/portfolio')
-app.register_blueprint(stock_bp, url_prefix='/stock')
+app.register_blueprint(stocks_bp, url_prefix='/stocks')
+
+# Добавляем вызов функции для получения данных о акции AAPL при старте
+stock_data = get_stock_data("AAPL")
+print("Stock data for AAPL:", stock_data)  # Выводим полученные данные
+
 print("Blueprints registered")
 
 if __name__ == '__main__':
