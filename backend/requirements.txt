@@ -1,0 +1,7 @@
+Flask
+flask-jwt-extended
+flask-cors
+python-dotenv
+pymongo
+requests
+werkzeug
