@@ -17,4 +17,4 @@ COPY . .
 ENV FLASK_APP=app.py
 
 # Указываем команду для запуска приложения
-CMD ["flask", "run", "--host=0.0.0.0"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=$PORT"]
