@@ -8,13 +8,18 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Устанавливаем зависимости
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Копируем весь код приложения в контейнер
 COPY . .
 
-# Устанавливаем переменную окружения для Flask
+# Устанавливаем переменные окружения для Flask
 ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=5000
+
+# Открываем порт
+EXPOSE 5000
 
 # Указываем команду для запуска приложения
-CMD ["flask", "run", "--host=0.0.0.0", "--port=$PORT"]
+CMD ["flask", "run"]
