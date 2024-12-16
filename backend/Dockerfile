@@ -21,4 +21,4 @@ ENV FLASK_RUN_HOST=0.0.0.0
 EXPOSE 5000
 
 # Указываем команду для запуска приложения
-CMD ["flask", "run", "--host=0.0.0.0", "--port=${PORT}"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=$PORT"]
