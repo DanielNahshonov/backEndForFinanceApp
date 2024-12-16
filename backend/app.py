@@ -39,5 +39,5 @@ print("Blueprints registered")
 
 if __name__ == '__main__':
     print("Starting Flask app...")
-    port = int(os.environ.get("PORT", 5000))  # 5000 — порт по умолчанию, если нет переменной окружения
-    app.run(debug=False, host='0.0.0.0', port=port)
+    heroku_port = int(os.environ.get("PORT", 5000))  # 5000 — порт по умолчанию, если нет переменной окружения
+    app.run(debug=False, host='0.0.0.0', port=heroku_port)
