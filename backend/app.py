@@ -38,6 +38,7 @@ print("Stock data for AAPL:", stock_data)  # Выводим полученные
 print("Blueprints registered")
 
 if __name__ == '__main__':
+    
     print("Starting Flask app...")
     heroku_port = int(os.environ.get("PORT", 5000))  # 5000 — порт по умолчанию, если нет переменной окружения
     app.run(debug=False, host='0.0.0.0', port=heroku_port)
