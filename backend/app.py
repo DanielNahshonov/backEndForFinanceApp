@@ -39,4 +39,6 @@ print("Blueprints registered")
 
 if __name__ == '__main__':
     print("Starting Flask app...")
-    app.run(debug=True, host='0.0.0.0')
+    port = int(os.environ.get("PORT", 5000))  # 5001 — порт по умолчанию для локального запуска
+app.run(debug=False, host='0.0.0.0', port=port)
+    # app.run(debug=True, host='0.0.0.0')
