@@ -38,16 +38,19 @@ print("Stock data for AAPL:", stock_data)  # Выводим полученные
 print("Blueprints registered")
 
 if __name__ == '__main__':
-    print("Starting Flask app...")
-    
-    # Получаем порт из переменной окружения или используем 5000 по умолчанию
-    heroku_port = int(os.environ.get("PORT", 5000))
-    
-    # Печатаем сам порт
-    print(f"Port: {heroku_port}")
-    
-    # Печатаем тип переменной heroku_port
-    print(f"Type of PORT: {type(heroku_port)}")
-    
-    # Запуск Flask приложения
-    app.run(debug=False, host='0.0.0.0', port=heroku_port)
+    print("=== Проверка переменной окружения PORT ===")
+    heroku_port = os.environ.get("PORT")
+    print(f"PORT из переменной окружения: {heroku_port} (Тип: {type(heroku_port)})")
+
+    try:
+        if heroku_port:
+            heroku_port = int(heroku_port)  # Конвертируем в int
+            print(f"Запуск Flask на порту: {heroku_port}")
+            app.run(debug=False, host='0.0.0.0', port=heroku_port)
+        else:
+            print("PORT не найден! Использую порт 5000 по умолчанию.")
+            app.run(debug=False, host='0.0.0.0', port=5000)
+    except ValueError as e:
+        print(f"Ошибка при обработке PORT: {e}")
+        print("Запуск Flask на порту 5000 (по умолчанию).")
+        app.run(debug=False, host='0.0.0.0', port=5000)
