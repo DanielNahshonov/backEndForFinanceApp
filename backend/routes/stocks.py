@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from services.stock_service import get_stock_data
+from services.stock_service import get_stock_data , get_stock_news, get_trending_news
 
 stocks_bp = Blueprint('stocks', __name__)
 
@@ -17,14 +17,34 @@ def fetch_stock_data(symbol):
 
     return jsonify(data), 200
 
-# @stocks_bp.route('/stocks/popular', methods=['GET'])
-# def fetch_popular_stocks():
-#     """
-#     Эндпоинт для получения данных о популярных акциях.
-#     """
-#     data = get_popular_stocks()  # Предположим, эта функция возвращает список популярных акций.
+@stocks_bp.route('/news', methods=['GET'])
+def fetch_stock_news():
+    """
+    Эндпоинт для получения новостей по ключевым словам.
+    Пример: /stocks/news?keywords=TSLA
+    """
+    keywords = request.args.get('keywords', 'stock market')  # По умолчанию - общие новости
+    print(f"Fetching news for keywords: {keywords}")
 
-#     if not data:
-#         return jsonify({'message': 'No popular stocks found'}), 404
+    news = get_stock_news(keywords)
 
-#     return jsonify({'stocks': data}), 200
+    if not news:
+        return jsonify({'message': 'No news found'}), 404
+
+    return jsonify(news), 200
+
+
+@stocks_bp.route('/news/trending', methods=['GET'])
+def fetch_trending_news():
+    """
+    Эндпоинт для получения трендовых рыночных новостей.
+    Пример: /stocks/news/trending
+    """
+    print("Fetching trending news...")
+
+    news = get_trending_news()
+
+    if not news:
+        return jsonify({'message': 'No trending news found'}), 404
+
+    return jsonify(news), 200

@@ -37,3 +37,52 @@ def get_stock_data(symbol):
         print(f"Error fetching stock data: {e}")
         return None
     
+
+def get_stock_news(keywords):
+    """
+    Получает новости о компании или рынке по ключевым словам.
+    """
+    params = {
+        "function": "NEWS_SENTIMENT",
+        "topics": keywords,
+        "apikey": API_KEY
+    }
+
+    try:
+        response = requests.get(BASE_URL, params=params)
+        response.raise_for_status()
+        data = response.json()
+
+        # Проверяем, есть ли новости
+        if "feed" in data:
+            return data["feed"]
+        else:
+            return []
+
+    except Exception as e:
+        print(f"Error fetching stock news: {e}")
+        return None
+
+def get_trending_news():
+    """
+    Получает трендовые рыночные новости.
+    """
+    params = {
+        "function": "NEWS_SENTIMENT",  # Функция для получения новостей
+        "apikey": API_KEY
+    }
+
+    try:
+        response = requests.get(BASE_URL, params=params)
+        response.raise_for_status()
+        data = response.json()
+
+        # Проверяем, есть ли новости
+        if "feed" in data:
+            return data["feed"]
+        else:
+            return []
+
+    except Exception as e:
+        print(f"Error fetching trending news: {e}")
+        return None
